@@ -1,6 +1,7 @@
 {
-    "text.autoconfig.squake.title": "Squake Options",
-	"text.autoconfig.squake.option.speedometerPosition": "Speedometer",
+	"squake.keybinds.title": "Squake",
+    "squake.options.title": "Squake Options",
+	"squake.options.general": "General",
     "text.autoconfig.squake.option.trimpMultiplier": "Trimp Multiplier",
 	"text.autoconfig.squake.option.hardCapThreshold": "Hard Cap Threshold",
 	"text.autoconfig.squake.option.softCapThreshold": "Soft Cap Threshold",
@@ -15,7 +16,7 @@
 	"text.autoconfig.squake.option.fallDistanceThresholdIncrease": "Fall Distance Threshold Increase",
 	"text.autoconfig.squake.option.maxAirAccelerationPerTick": "Max Air Acceleration Per Tick",
     "text.autoconfig.squake.option.enabled": "Enabled",
-    
+
     "fabric.mods.squake": "Squake",
     "fabric.mods.squake.enable": "Toggle Squake Movement",
 

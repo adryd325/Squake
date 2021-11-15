@@ -20,12 +20,6 @@
   "entrypoints": {
     "main": [
       "squeek.quakemovement.ModQuakeMovement"
-    ],
-    "client": [
-      "squeek.quakemovement.KeyBindInitializer"
-    ],
-    "modmenu" : [
-      "squeek.quakemovement.ModMenuIntegration"
     ]
   },
   "mixins": [

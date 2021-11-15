@@ -1,9 +1,6 @@
 package squeek.quakemovement;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import fi.dy.masa.malilib.event.InitializationHandler;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
@@ -12,40 +9,37 @@ import net.minecraft.util.math.MathHelper;
 import squeek.quakemovement.ModConfig.SpeedometerPosition;
 
 public class ModQuakeMovement implements ModInitializer {
-	public static final ModConfig CONFIG;
 
-	static {
-		AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
-		CONFIG = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-	}
+    @Override
+    public void onInitialize() {
+        //Cause this class to be loaded so the config loads on startup
+		InitializationHandler.getInstance().registerInitializationHandler(new ModInitHandler());
+    }
 
-	@Override
-	public void onInitialize() {
-		//Cause this class to be loaded so the config loads on startup
-	}
-
-	public static void drawSpeedometer(MatrixStack matrices)
-	{
-		MinecraftClient mc = MinecraftClient.getInstance();
-		PlayerEntity player = mc.player;
-		double deltaX = player.getX() - player.prevX;
-		double deltaZ = player.getZ() - player.prevZ;
-		double speed = MathHelper.sqrt((float) (deltaX * deltaX + deltaZ * deltaZ));
-		String speedString = String.format("%.02f", speed);
-		int x;
-		int y;
-		if (CONFIG.getSpeedometerPosition() == SpeedometerPosition.BOTTOM_LEFT || CONFIG.getSpeedometerPosition() == SpeedometerPosition.TOP_LEFT) {
-			x = 10;
-		} else {
-			x = mc.getWindow().getScaledWidth() - mc.textRenderer.getWidth(speedString) - 10;
-		}
-		if (CONFIG.getSpeedometerPosition() == SpeedometerPosition.TOP_RIGHT || CONFIG.getSpeedometerPosition() == SpeedometerPosition.TOP_LEFT) {
-			y = 10;
-		} else {
-			y = mc.getWindow().getScaledHeight() - mc.textRenderer.fontHeight - 10;
-		}
-		matrices.push();
-		mc.textRenderer.drawWithShadow(matrices, speedString, x, y, 0xFFDDDDDD);
-		matrices.pop();
-	}
+    public static void drawSpeedometer(MatrixStack matrices) {
+        if (ModConfig.getSpeedometerPosition() == SpeedometerPosition.OFF) {
+            return;
+        }
+        MinecraftClient mc = MinecraftClient.getInstance();
+        PlayerEntity player = mc.player;
+        double deltaX = player.getX() - player.prevX;
+        double deltaZ = player.getZ() - player.prevZ;
+        double speed = MathHelper.sqrt((float) (deltaX * deltaX + deltaZ * deltaZ));
+        String speedString = String.format("%.02f", speed);
+        int x;
+        int y;
+        if (ModConfig.getSpeedometerPosition() == SpeedometerPosition.BOTTOM_LEFT || ModConfig.getSpeedometerPosition() == SpeedometerPosition.TOP_LEFT) {
+            x = 10;
+        } else {
+            x = mc.getWindow().getScaledWidth() - mc.textRenderer.getWidth(speedString) - 10;
+        }
+        if (ModConfig.getSpeedometerPosition() == SpeedometerPosition.TOP_RIGHT || ModConfig.getSpeedometerPosition() == SpeedometerPosition.TOP_LEFT) {
+            y = 10;
+        } else {
+            y = mc.getWindow().getScaledHeight() - mc.textRenderer.fontHeight - 10;
+        }
+        matrices.push();
+        mc.textRenderer.drawWithShadow(matrices, speedString, x, y, 0xFFDDDDDD);
+        matrices.pop();
+    }
 }

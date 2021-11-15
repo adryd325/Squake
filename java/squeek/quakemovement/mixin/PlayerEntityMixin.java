@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import squeek.quakemovement.ModQuakeMovement;
+import squeek.quakemovement.ModConfig;
 import squeek.quakemovement.QuakeClientPlayer;
 import squeek.quakemovement.QuakeClientPlayer.IsJumpingGetter;
 
@@ -25,7 +25,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IsJumpin
 	@Inject(at = @At("HEAD"), method = "travel(Lnet/minecraft/util/math/Vec3d;)V", cancellable = true)
 	private void travel(Vec3d movementInput, CallbackInfo info)
 	{
-		if (!ModQuakeMovement.CONFIG.isEnabled())
+		if (!ModConfig.Config.enabled.getBooleanValue())
 			return;
 
 		if (QuakeClientPlayer.travel((PlayerEntity) (Object) this, movementInput))
@@ -46,7 +46,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IsJumpin
 
 	@Override
 	public void updateVelocity(float speed, Vec3d movementInput) {
-		if (!ModQuakeMovement.CONFIG.isEnabled() || !world.isClient) {
+		if (!ModConfig.Config.enabled.getBooleanValue() || !world.isClient) {
 			super.updateVelocity(speed, movementInput);
 			return;
 		}
