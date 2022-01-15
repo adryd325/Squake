@@ -34,7 +34,7 @@ public class ModConfig implements IConfigHandler {
         public static final ConfigDouble maxAirAccelerationPerTick = new ConfigDouble("maxAirAccelerationPerTick", 0.045d, "");
         public static final ConfigBoolean enabled = new ConfigBoolean("enabled", true, "");
         public static final ConfigHotkey openConfigGui = new ConfigHotkey("openConfigGui", "U,C", "");
-        public static final ConfigHotkey toggleEnabled = new ConfigHotkey("toggleEnabled", "U", KeybindSettings.MODIFIER_INGAME, "");
+        public static final ConfigHotkey toggleEnabled = new ConfigHotkey("toggleEnabled", "U,E", KeybindSettings.MODIFIER_INGAME, "");
 
         public static final ImmutableList<IConfigValue> OPTIONS = ImmutableList.of(
                 trimpMultiplier,
