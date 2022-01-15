@@ -4,13 +4,17 @@
   "version": "${version}",
 
   "name": "Squake",
-  "description": "Quake-style movement (bunnyhopping, etc) in Minecraft",
+  "description": "Quake-style movement (bunnyhopping, etc) in Minecraft. Configurable through U+C.",
   "authors": [
     "squeek502",
-    "ThatTrollzer/CoolMineman"
+    "ThatTrollzer/CoolMineman",
+    "Cynosphere",
+    "Siuolthepic",
+    "adryd325",
+    "derspyy"
   ],
   "contact": {
-    "sources": "https://github.com/squeek502/Squake"
+    "sources": "https://github.com/adryd325/Squake"
   },
 
   "license": "Unlicense",
