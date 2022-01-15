@@ -60,7 +60,10 @@ public class ModConfig implements IConfigHandler {
                 trimpEnabled,
                 trimpMultiplier,
 
-                new BooleanHotkeyGuiWrapper("enabled", enabled, enabled.getKeybind()),
+                // when malilib updates to 0.11.3
+                // new BooleanHotkeyGuiWrapper("enabled", enabled, enabled.getKeybind()),
+                enabled,
+                new ConfigTypeWrapper(ConfigType.HOTKEY, enabled),
                 openConfigGui,
 
                 speedometerPosition,
