@@ -17,23 +17,25 @@ public class ModQuakeMovement implements ModInitializer {
     }
 
     public static void drawSpeedometer(MatrixStack matrices) {
-        if (ModConfig.getSpeedometerPosition() == SpeedometerPosition.OFF) {
+        if (ModConfig.Config.speedometerPosition.getOptionListValue() == SpeedometerPosition.OFF) {
             return;
         }
         MinecraftClient mc = MinecraftClient.getInstance();
         PlayerEntity player = mc.player;
         double deltaX = player.getX() - player.prevX;
         double deltaZ = player.getZ() - player.prevZ;
-        double speed = MathHelper.sqrt((float) (deltaX * deltaX + deltaZ * deltaZ));
+        // multiply by 20 for blocks per second
+        double multiplier = ModConfig.Config.useBlocksPerSecond.getBooleanValue() ? 20 : 1;
+        double speed = MathHelper.sqrt((float) (deltaX * deltaX + deltaZ * deltaZ)) * multiplier;
         String speedString = String.format("%.02f", speed);
         int x;
         int y;
-        if (ModConfig.getSpeedometerPosition() == SpeedometerPosition.BOTTOM_LEFT || ModConfig.getSpeedometerPosition() == SpeedometerPosition.TOP_LEFT) {
+        if (ModConfig.Config.speedometerPosition.getOptionListValue() == SpeedometerPosition.BOTTOM_LEFT || ModConfig.Config.speedometerPosition.getOptionListValue()  == SpeedometerPosition.TOP_LEFT) {
             x = 10;
         } else {
             x = mc.getWindow().getScaledWidth() - mc.textRenderer.getWidth(speedString) - 10;
         }
-        if (ModConfig.getSpeedometerPosition() == SpeedometerPosition.TOP_RIGHT || ModConfig.getSpeedometerPosition() == SpeedometerPosition.TOP_LEFT) {
+        if (ModConfig.Config.speedometerPosition.getOptionListValue() == SpeedometerPosition.TOP_RIGHT || ModConfig.Config.speedometerPosition.getOptionListValue() == SpeedometerPosition.TOP_LEFT) {
             y = 10;
         } else {
             y = mc.getWindow().getScaledHeight() - mc.textRenderer.fontHeight - 10;

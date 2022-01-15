@@ -1,6 +1,7 @@
 package squeek.quakemovement;
 
 import fi.dy.masa.malilib.config.IConfigBase;
+import fi.dy.masa.malilib.config.IStringRepresentable;
 import fi.dy.masa.malilib.gui.GuiConfigsBase;
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ModGUI extends GuiConfigsBase {
-    private static GuiTabs tab = GuiTabs.TWEAKS;
+    private static GuiTabs tab = GuiTabs.SETTINGS;
     private static GuiTabs lastTab;
 
     public ModGUI() {
@@ -47,7 +48,7 @@ public class ModGUI extends GuiConfigsBase {
         GuiTabs tab = ModGUI.tab;
 
         switch (tab) {
-            case TWEAKS:
+            case SETTINGS:
                 configs = ModConfig.Config.OPTIONS;
                 break;
             default:
@@ -80,7 +81,7 @@ public class ModGUI extends GuiConfigsBase {
 
 
     public enum GuiTabs {
-        TWEAKS("squake.options.general");
+        SETTINGS("squake.options.general");
 
         private final String translationKey;
 

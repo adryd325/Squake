@@ -4,13 +4,13 @@
   "version": "${version}",
 
   "name": "Squake",
-  "description": "Quake-style movement (bunnyhopping, etc) in Minecraft. Configurable through U+C.",
+  "description": "Quake-style movement (bunnyhopping, etc) in Minecraft.",
   "authors": [
     "squeek502",
     "ThatTrollzer/CoolMineman",
     "Cynosphere",
     "Siuolthepic",
-    "adryd325",
+    "adryd",
     "derspyy"
   ],
   "contact": {
@@ -20,10 +20,13 @@
   "license": "Unlicense",
   "icon": "assets/squake/icon.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "squeek.quakemovement.ModQuakeMovement"
+    ],
+    "modmenu": [
+      "squeek.quakemovement.ModMenuImpl"
     ]
   },
   "mixins": [
@@ -31,6 +34,7 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.4.0"
+    "fabricloader": ">=0.11.3",
+    "malilib": ">=0.10.0"
   }
 }

@@ -11,7 +11,6 @@ public class KeyCallbacks {
         IHotkeyCallback callbackGeneric = new KeyCallbackHotkeysGeneric(client);
 
         ModConfig.Config.openConfigGui.getKeybind().setCallback(callbackGeneric);
-        ModConfig.Config.toggleEnabled.getKeybind().setCallback(callbackGeneric);
     }
 
     private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback {
@@ -25,9 +24,6 @@ public class KeyCallbacks {
         public boolean onKeyAction(KeyAction action, IKeybind key) {
             if (key == ModConfig.Config.openConfigGui.getKeybind()) {
                 GuiBase.openGui(new ModGUI());
-                return true;
-            } else if (key == ModConfig.Config.toggleEnabled.getKeybind()) {
-                ModConfig.Config.enabled.setBooleanValue(!ModConfig.Config.enabled.getBooleanValue());
                 return true;
             }
 
