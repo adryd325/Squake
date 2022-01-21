@@ -37,7 +37,7 @@ public class ModConfig implements IConfigHandler {
         //public static final ConfigDouble fallDistanceThresholdIncrease = new ConfigDouble("fallDistanceThresholdIncrease", 0d, 0d, 1d, false, "Increase fall damage threshold");
 
         public static final ConfigHotkey openConfigGui = new ConfigHotkey("openConfigGui", "U,C", "");
-        public static final ConfigBooleanHotkeyed enabled = new ConfigBooleanHotkeyed("enabled", true, "U,E", "");
+        public static final ConfigBooleanHotkeyed enabled = new ConfigBooleanHotkeyed("enabled", true, "U,E", "", "Quake movement");
 
         public static final ConfigOptionList speedometerPosition = new ConfigOptionList("speedometerPosition", SpeedometerPosition.BOTTOM_LEFT, "");
         public static final ConfigBoolean useBlocksPerSecond = new ConfigBoolean("useBlocksPerSecond", true, "Use blocks per second instead of blocks per tick in speedometer");
@@ -60,10 +60,8 @@ public class ModConfig implements IConfigHandler {
                 trimpEnabled,
                 trimpMultiplier,
 
-                // when malilib updates to 0.11.3
-                // new BooleanHotkeyGuiWrapper("enabled", enabled, enabled.getKeybind()),
+
                 enabled,
-                new ConfigTypeWrapper(ConfigType.HOTKEY, enabled),
                 openConfigGui,
 
                 speedometerPosition,
@@ -71,7 +69,7 @@ public class ModConfig implements IConfigHandler {
         );
 
         public static final List<IHotkey> HOTKEY_LIST = ImmutableList.of(
-                enabled,
+                new ConfigTypeWrapper(ConfigType.HOTKEY, enabled),
                 openConfigGui
         );
     }
@@ -142,7 +140,8 @@ public class ModConfig implements IConfigHandler {
             if (element != null && element.isJsonObject()) {
                 JsonObject root = element.getAsJsonObject();
 
-                ConfigUtils.readConfigBase(root, "params", ModConfig.Config.OPTIONS);
+                ConfigUtils.readConfigBase(root, "params", Config.OPTIONS);
+                ConfigUtils.readHotkeys(root, "hotkey", Config.HOTKEY_LIST);
             }
         }
     }
@@ -153,7 +152,8 @@ public class ModConfig implements IConfigHandler {
         if ((dir.exists() && dir.isDirectory()) || dir.mkdirs()) {
             JsonObject root = new JsonObject();
 
-            ConfigUtils.writeConfigBase(root, "params", ModConfig.Config.OPTIONS);
+            ConfigUtils.writeConfigBase(root, "params", Config.OPTIONS);
+            ConfigUtils.writeHotkeys(root, "hotkey", Config.HOTKEY_LIST);
 
             JsonUtils.writeJsonToFile(root, new File(dir, CONFIG_FILE_NAME));
         }
