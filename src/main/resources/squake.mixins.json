@@ -3,6 +3,7 @@
   "package": "squeek.quakemovement.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "LivingEntityMixin",
     "PlayerEntityMixin"
   ],
   "injectors": {

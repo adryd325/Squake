@@ -17,7 +17,7 @@ import squeek.quakemovement.QuakeClientPlayer;
 import squeek.quakemovement.QuakeClientPlayer.IsJumpingGetter;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements IsJumpingGetter {
+public abstract class PlayerEntityMixin extends LivingEntityMixin implements IsJumpingGetter {
 	private PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 	}
@@ -38,9 +38,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IsJumpin
 		QuakeClientPlayer.beforeOnLivingUpdate((PlayerEntity) (Object) this);
 	}
 
-	@Inject(at = @At("TAIL"), method = "jump()V")
-	private void afterJump(CallbackInfo info)
-	{
+	@Override
+	protected void afterJump(CallbackInfo ci) {
 		QuakeClientPlayer.afterJump((PlayerEntity) (Object) this);
 	}
 
@@ -67,12 +66,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IsJumpin
 	boolean velocityHack = false;
 
 	@Inject(at = @At("HEAD"), method = "handleFallDamage")
-	private void preHandleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+	private void preHandleFallDamage(double fallDistance, float damagePerDistance, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
 		velocityHack = velocityModified;
 	}
 	
 	@Inject(at = @At("RETURN"), method = "handleFallDamage")
-	private void postHandleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+	private void postHandleFallDamage(double fallDistance, float damagePerDistance, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
 		if (!this.getWorld().isClient) velocityModified = velocityHack;
 	}
 }

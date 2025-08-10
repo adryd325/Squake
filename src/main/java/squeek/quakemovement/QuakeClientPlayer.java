@@ -39,7 +39,7 @@ public class QuakeClientPlayer {
         double d1 = player.getY();
         double d2 = player.getZ();
 
-        if ((player.getAbilities().flying || player.isFallFlying()) && !player.hasVehicle()) return false;
+        if ((player.getAbilities().flying || player.isGliding()) && !player.hasVehicle()) return false;
         else didQuakeMovement = quake_travel(player, movementInput);
 
         return didQuakeMovement;
@@ -182,7 +182,7 @@ public class QuakeClientPlayer {
 
         if (blockState.getRenderType() != BlockRenderType.INVISIBLE) {
             for (int iParticle = 0; iParticle < numParticles; iParticle++) {
-                player.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), player.getX() + (random.nextFloat() - 0.5D) * player.getWidth(), player.getY() + 0.1D, player.getZ() + (random.nextFloat() - 0.5D) * player.getWidth(), -player.getVelocity().x * 4.0D, 1.5D, -player.getVelocity().z * 4.0D);
+                player.getWorld().addParticleClient(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), player.getX() + (random.nextFloat() - 0.5D) * player.getWidth(), player.getY() + 0.1D, player.getZ() + (random.nextFloat() - 0.5D) * player.getWidth(), -player.getVelocity().x * 4.0D, 1.5D, -player.getVelocity().z * 4.0D);
             }
         }
     }
